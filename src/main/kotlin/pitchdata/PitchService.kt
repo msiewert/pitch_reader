@@ -16,48 +16,45 @@ class PitchService(private val data: List<Any>) {
                     if (orderMap.containsKey(record.orderId)) {
                         logger.info { "Duplicate order id ${record.orderId}" }
                     } else {
-                        //println("Adding order ${record.orderId} for ${record.shares} shares of ${record.symbol}")
                         orderMap[record.orderId] = record
                     }
-
                 }
 
                 is ExecuteOrderRecord -> {
                     val order = orderMap[record.orderId]
                     if (order != null) {
-
+                        logger.info { "Execute - Order id ${record.orderId} for ${record.shares} shares of ${order.symbol}" }
                         if (record.shares > order.shares) {
                             logger.info { "Execute - Order id ${record.orderId} for ${record.shares} shares of ${order.symbol} is greater than the order shares ${order.shares}." }
                         }
-
                         executedVolumes[order.symbol] = executedVolumes.getOrDefault(order.symbol, 0) + record.shares
-                        //println("Execute - Order id ${record.orderId} for ${record.shares} shares of ${order.symbol}.")
                     } else {
-                        logger.info { "Execute - Order id ${record.orderId} not found." }
+                        logger.info { "Cannot Execute - Order id ${record.orderId} not found." }
                     }
                 }
 
                 is CancelOrderRecord -> {
                     val order = orderMap[record.orderId]
                     if (order != null) {
-                        //println("Cancel - Order id ${record.orderId} found. ${order.shares} ${record.shares} ")
-                        if (order.shares == record.shares) {
-                            //println("Removing order ${record.orderId}")
+                        val orderUpdate = order.copy(shares = order.shares - record.shares)
+                        if (orderUpdate.shares == 0) {
                             orderMap.remove(record.orderId)
                         } else {
-                            logger.info { "Updating order ${record.orderId}" }
-                            orderMap[record.orderId] = order.copy(shares = order.shares - record.shares)
+
+                            orderMap[record.orderId] = orderUpdate
                         }
-                        //println("Cancel - Order id ${record.orderId} found. ${order.shares} ${record.shares} ")
-
-
                     } else {
-                        //println("Cancel - Order id ${record.orderId} not found.")
+                        logger.info { "Cannot Cancel - Order id ${record.orderId} not found." }
                     }
                 }
 
                 is TradeRecord -> {
+                    logger.info { "Trade - Order id ${record.orderId} for ${record.shares} shares of ${record.symbol}" }
                     executedVolumes[record.symbol] = executedVolumes.getOrDefault(record.symbol, 0) + record.shares
+                }
+
+                is IgnoredRecord -> {
+                    logger.info { "Ignored record of type ${record.type}" }
                 }
 
                 else -> {
@@ -65,7 +62,9 @@ class PitchService(private val data: List<Any>) {
                 }
             }
         }
-        logger.info { executedVolumes }
+
+        logger.info { "${orderMap.size} unfulfilled orders remain." }
+
         return executedVolumes
     }
 }
