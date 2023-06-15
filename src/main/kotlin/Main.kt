@@ -38,7 +38,7 @@ fun main() {
         val topTenReport = executionResults.toList().sortedByDescending { (_, value) -> value }.take(10)
         logger.info { "Top 10 symbols by executed volume:" }
         topTenReport.forEach {
-            logger.info { "${it.first} - ${it.second}" }
+            logger.info { "${it.first} ${it.second}" }
         }
 
 
