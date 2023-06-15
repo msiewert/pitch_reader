@@ -14,8 +14,8 @@ repositories {
 dependencies {
     implementation("br.com.guiabolso:FixedLengthFileHandler:1.0.0")
 
-    implementation("io.github.microutils:kotlin-logging:2.1.23")
-    runtimeOnly("org.apache.logging.log4j:log4j-slf4j18-impl:2.18.0")
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+    runtimeOnly("org.slf4j:slf4j-simple:2.0.3")
 
     testImplementation(kotlin("test"))
 }

@@ -7,7 +7,6 @@ private val logger = KotlinLogging.logger { }
 
 fun main() {
     try {
-        println("Pitch reader is executing.")
         logger.info { "Pitch reader is executing." }
 
         val pitchParser = PitchParser(generateSequence(::readLine))
@@ -29,17 +28,17 @@ fun main() {
             } else null
         }
 
-        println("${output.count()} total records loaded.")
-        println("${ignoredRecords.count()} records will be ignored.")
-        println("${recordsToProcess.count()} records will be processed.")
+        logger.info { "${output.count()} total records loaded." }
+        logger.info { "${ignoredRecords.count()} records will be ignored." }
+        logger.info { "${recordsToProcess.count()} records will be processed." }
 
         val pitchService = PitchService(recordsToProcess)
         val executionResults = pitchService.processData()
 
         val topTenReport = executionResults.toList().sortedByDescending { (_, value) -> value }.take(10)
-        println("Top 10 symbols by executed volume:")
+        logger.info { "Top 10 symbols by executed volume:" }
         topTenReport.forEach {
-            println("${it.first} - ${it.second}")
+            logger.info { "${it.first} - ${it.second}" }
         }
 
 
