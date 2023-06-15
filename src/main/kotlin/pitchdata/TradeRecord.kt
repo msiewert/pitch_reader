@@ -1,4 +1,4 @@
-package pitch
+package pitchdata
 
 const val TRADE_RECORD_TYPE = 'P'
 

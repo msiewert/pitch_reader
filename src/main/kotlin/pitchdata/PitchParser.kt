@@ -1,4 +1,4 @@
-package pitch
+package pitchdata
 
 import br.com.guiabolso.fixedlengthfilehandler.multiFixedLengthFileParser
 import java.util.stream.Collectors
@@ -27,7 +27,7 @@ class PitchParser(private val data: Sequence<String>) {
                 AddOrderRecord(
                     orderId = field(ORDER_ID_OFFSET, ORDER_ID_OFFSET + ORDER_ID_LENGTH),
                     shares = field(23, 29),
-                    symbol = field(SYMBOL_OFFSET, SYMBOL_OFFSET + SYMBOL_LENGTH)
+                    symbol = field<String>(SYMBOL_OFFSET, SYMBOL_OFFSET + SYMBOL_LENGTH).trim()
                 )
             }
             withRecord({ line -> line[MESSAGE_TYPE_OFFSET] == EXECUTE_ORDER_TYPE }) {
@@ -39,7 +39,7 @@ class PitchParser(private val data: Sequence<String>) {
             withRecord({ line -> line[MESSAGE_TYPE_OFFSET] == TRADE_RECORD_TYPE }) {
                 TradeRecord(
                     orderId = field(ORDER_ID_OFFSET, ORDER_ID_OFFSET + ORDER_ID_LENGTH),
-                    symbol = field(SYMBOL_OFFSET, SYMBOL_OFFSET + SYMBOL_LENGTH),
+                    symbol = field<String>(SYMBOL_OFFSET, SYMBOL_OFFSET + SYMBOL_LENGTH).trim(),
                     shares = field(23, 29),
                 )
             }
