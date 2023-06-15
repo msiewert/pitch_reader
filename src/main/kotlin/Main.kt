@@ -12,10 +12,6 @@ fun main() {
         val pitchParser = PitchParser(generateSequence(::readLine))
         val output = pitchParser.parse()
 
-//        output.forEach {
-//            println(it)
-//        }
-
         val ignoredRecords = output.mapNotNull {
             if (it is IgnoredRecord) {
                 it
