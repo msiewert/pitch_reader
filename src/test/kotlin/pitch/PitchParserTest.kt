@@ -1,12 +1,10 @@
 package pitch
 
-import io.github.serpro69.kfaker.Faker
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 
-private val faker = Faker()
 
 class PitchParserTest : FunSpec({
     context("parse") {
