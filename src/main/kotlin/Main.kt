@@ -31,7 +31,7 @@ fun main() {
         val pitchService = PitchService(recordsToProcess)
         val executionResults = pitchService.processData()
 
-        val topTenReport = executionResults.toList().sortedByDescending { (_, value) -> value }.take(10)
+        val topTenReport = executionResults.executedVolumes.toList().sortedByDescending { (_, value) -> value }.take(10)
         logger.info { "Top 10 symbols by executed volume:" }
         topTenReport.forEach {
             logger.info { "${it.first} ${it.second}" }

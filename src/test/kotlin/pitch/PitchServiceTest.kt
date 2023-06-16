@@ -25,7 +25,7 @@ class PitchServiceTest : FunSpec({
 
             val result = sut.processData()
 
-            result shouldBe mapOf(
+            result.executedVolumes shouldBe mapOf(
                 symbol to volume
             )
         }
@@ -43,7 +43,7 @@ class PitchServiceTest : FunSpec({
 
             val result = sut.processData()
 
-            result shouldBe emptyMap()
+            result.executedVolumes shouldBe emptyMap()
         }
     }
 })

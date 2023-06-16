@@ -9,7 +9,7 @@ class PitchService(private val data: List<Any>) {
     private val orderMap = mutableMapOf<String, AddOrderRecord>()
     private val executedVolumes = mutableMapOf<String, Int>()
 
-    fun processData(): Map<String, Int> {
+    fun processData(): Results {
         data.forEach { record ->
             when (record) {
                 is AddOrderRecord -> {
@@ -65,6 +65,8 @@ class PitchService(private val data: List<Any>) {
 
         logger.info { "${orderMap.size} unfulfilled orders remain." }
 
-        return executedVolumes
+        return Results(executedVolumes, orderMap)
     }
 }
+
+data class Results(val executedVolumes: Map<String, Int>, val unfulfilledOrders: Map<String, AddOrderRecord>)
