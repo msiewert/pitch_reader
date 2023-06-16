@@ -69,4 +69,4 @@ class PitchService(private val data: List<Any>) {
     }
 }
 
-data class Results(val executedVolumes: Map<String, Int>, val unfulfilledOrders: Map<String, AddOrderRecord>)
+data class Results(val executedVolumes: Map<String, Int>, val orders: Map<String, AddOrderRecord>)
