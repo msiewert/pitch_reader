@@ -124,5 +124,27 @@ class PitchParserTest : FunSpec({
                 it.shouldBeInstanceOf<TradeRecord>()
             }
         }
+
+        test("should load multiple types of records") {
+
+            val records = listOf(
+                "S28921671B6K27GA0000C0B000500IWM   0000736800Y",
+                "S28800011AAK27GA0000DTS000100SH    0000619200Y",
+                "S28800174X5K27GA00000K000100",
+                "S28803224E4K27GA00003G00007700004AQ00001",
+                "S28807529PCK27GA000016B000100ZVZZT 0020000000000I000HV1PL",
+            ).asSequence()
+
+            val sut = PitchParser(records)
+
+            val result = sut.parse()
+
+            result.count() shouldBe records.count()
+            result[0].shouldBeInstanceOf<IgnoredRecord>()
+            result[1].shouldBeInstanceOf<AddOrderRecord>()
+            result[2].shouldBeInstanceOf<CancelOrderRecord>()
+            result[3].shouldBeInstanceOf<ExecuteOrderRecord>()
+            result[4].shouldBeInstanceOf<TradeRecord>()
+        }
     }
 })

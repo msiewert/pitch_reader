@@ -17,3 +17,8 @@ Sample data file is located in the root directory and named `pitch_data`. Replac
 ## Test
 
 `./gradlew clean test`
+
+## Tools
+
+- IntelliJ IDEA 2023.1.2 (Ultimate Edition)
+- GitHub Copilot Plugin 
