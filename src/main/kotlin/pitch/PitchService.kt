@@ -1,4 +1,4 @@
-package pitchdata
+package pitch
 
 import mu.KotlinLogging
 

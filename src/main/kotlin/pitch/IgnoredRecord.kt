@@ -1,3 +1,3 @@
-package pitchdata
+package pitch
 
 data class IgnoredRecord(val type: String)

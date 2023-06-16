@@ -1,7 +1,7 @@
 import mu.KotlinLogging
-import pitchdata.IgnoredRecord
-import pitchdata.PitchParser
-import pitchdata.PitchService
+import pitch.IgnoredRecord
+import pitch.PitchParser
+import pitch.PitchService
 
 private val logger = KotlinLogging.logger { }
 

@@ -17,7 +17,8 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
     runtimeOnly("org.slf4j:slf4j-simple:2.0.3")
 
-    testImplementation(kotlin("test"))
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.5.4")
+    testImplementation("io.github.serpro69:kotlin-faker:1.13.0")
 }
 
 tasks.test {

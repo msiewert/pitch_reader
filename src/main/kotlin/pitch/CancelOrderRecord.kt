@@ -1,4 +1,4 @@
-package pitchdata
+package pitch
 
 const val CANCEL_ORDER_TYPE = 'X'
 

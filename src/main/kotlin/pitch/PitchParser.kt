@@ -1,4 +1,4 @@
-package pitchdata
+package pitch
 
 import br.com.guiabolso.fixedlengthfilehandler.multiFixedLengthFileParser
 import java.util.stream.Collectors
