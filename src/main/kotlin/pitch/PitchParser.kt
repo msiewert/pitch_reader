@@ -6,9 +6,9 @@ import java.util.stream.Collectors
 const val MESSAGE_TYPE_OFFSET = 9
 const val ORDER_ID_OFFSET = 10
 const val ORDER_ID_LENGTH = 12
-
 const val SYMBOL_OFFSET = 29
 const val SYMBOL_LENGTH = 6
+const val SHARES_LENGTH = 6
 
 class PitchParser(private val data: Sequence<String>) {
     fun parse(): List<Any> {
@@ -20,27 +20,27 @@ class PitchParser(private val data: Sequence<String>) {
             withRecord({ line -> line[MESSAGE_TYPE_OFFSET] == CANCEL_ORDER_TYPE }) {
                 CancelOrderRecord(
                     orderId = field(ORDER_ID_OFFSET, ORDER_ID_OFFSET + ORDER_ID_LENGTH),
-                    shares = field(22, 28),
+                    shares = field(CANCEL_ORDER_SHARES_OFFSET, CANCEL_ORDER_SHARES_OFFSET + SHARES_LENGTH),
                 )
             }
             withRecord({ line -> line[MESSAGE_TYPE_OFFSET] == ADD_ORDER_TYPE }) {
                 AddOrderRecord(
                     orderId = field(ORDER_ID_OFFSET, ORDER_ID_OFFSET + ORDER_ID_LENGTH),
-                    shares = field(23, 29),
+                    shares = field(ADD_ORDER_SHARES_OFFSET, ADD_ORDER_SHARES_OFFSET + SHARES_LENGTH),
                     symbol = field<String>(SYMBOL_OFFSET, SYMBOL_OFFSET + SYMBOL_LENGTH)
                 )
             }
             withRecord({ line -> line[MESSAGE_TYPE_OFFSET] == EXECUTE_ORDER_TYPE }) {
                 ExecuteOrderRecord(
                     orderId = field(ORDER_ID_OFFSET, ORDER_ID_OFFSET + ORDER_ID_LENGTH),
-                    shares = field(22, 28),
+                    shares = field(EXECUTE_ORDER_SHARES_OFFSET, EXECUTE_ORDER_SHARES_OFFSET + SHARES_LENGTH),
                 )
             }
             withRecord({ line -> line[MESSAGE_TYPE_OFFSET] == TRADE_RECORD_TYPE }) {
                 TradeRecord(
                     orderId = field(ORDER_ID_OFFSET, ORDER_ID_OFFSET + ORDER_ID_LENGTH),
                     symbol = field<String>(SYMBOL_OFFSET, SYMBOL_OFFSET + SYMBOL_LENGTH),
-                    shares = field(23, 29),
+                    shares = field(TRADE_RECORD_SHARES_OFFSET, TRADE_RECORD_SHARES_OFFSET + SHARES_LENGTH),
                 )
             }
             withRecord({ _ -> true }) {
