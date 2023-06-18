@@ -2,6 +2,7 @@ package pitch
 
 import br.com.guiabolso.fixedlengthfilehandler.multiFixedLengthFileParser
 import java.util.stream.Collectors
+import kotlin.streams.asStream
 
 const val MESSAGE_TYPE_OFFSET = 9
 const val ORDER_ID_OFFSET = 10
@@ -13,7 +14,7 @@ const val SHARES_LENGTH = 6
 class PitchParser(private val data: Sequence<String>) {
     fun parse(): List<Any> {
         //TODO: convert sequence to input stream without needing to join as one string
-        val inputStream = data.toList().stream().collect(Collectors.joining("\n")).byteInputStream()
+        val inputStream = data.asStream().collect(Collectors.joining("\n")).byteInputStream()
         val records = multiFixedLengthFileParser(
             inputStream
         ) {
