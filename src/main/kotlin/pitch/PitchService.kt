@@ -4,12 +4,12 @@ import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger { }
 
-class PitchService(private val data: List<Any>) {
+class PitchService() {
 
     private val orderMap = mutableMapOf<String, AddOrderRecord>()
     private val executedVolumes = mutableMapOf<String, Int>()
 
-    fun processData(): Results {
+    fun processData(data: List<Any>): Results {
         data.forEach { record ->
             when (record) {
                 is AddOrderRecord -> {

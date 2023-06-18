@@ -28,8 +28,7 @@ fun main() {
         logger.info { "${ignoredRecords.count()} records will be ignored." }
         logger.info { "${recordsToProcess.count()} records will be processed." }
 
-        val pitchService = PitchService(recordsToProcess)
-        val executionResults = pitchService.processData()
+        val executionResults = PitchService().processData(recordsToProcess)
 
         val topTenReport = executionResults.executedVolumes.toList().sortedByDescending { (_, value) -> value }.take(10)
         logger.info { "Top 10 symbols by executed volume:" }
