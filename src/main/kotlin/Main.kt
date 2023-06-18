@@ -1,7 +1,7 @@
 import mu.KotlinLogging
-import pitch.IgnoredRecord
 import pitch.PitchParser
 import pitch.PitchService
+import pitch.UnsupportedRecord
 
 private val logger = KotlinLogging.logger { }
 
@@ -13,13 +13,13 @@ fun main() {
         val output = pitchParser.parse()
 
         val ignoredRecords = output.mapNotNull {
-            if (it is IgnoredRecord) {
+            if (it is UnsupportedRecord) {
                 it
             } else null
         }
 
         val recordsToProcess = output.mapNotNull {
-            if (it !is IgnoredRecord) {
+            if (it !is UnsupportedRecord) {
                 it
             } else null
         }

@@ -23,11 +23,11 @@ class PitchParserTest : FunSpec({
 
             result.count() shouldBe records.count()
             result.forEach {
-                it.shouldBeInstanceOf<IgnoredRecord>()
+                it.shouldBeInstanceOf<UnsupportedRecord>()
             }
-            result shouldContain IgnoredRecord("B")
-            result shouldContain IgnoredRecord("r")
-            result shouldContain IgnoredRecord("d")
+            result shouldContain UnsupportedRecord("B")
+            result shouldContain UnsupportedRecord("r")
+            result shouldContain UnsupportedRecord("d")
         }
 
         test("should load AddOrderRecords") {
@@ -138,7 +138,7 @@ class PitchParserTest : FunSpec({
             val result = sut.parse()
 
             result.count() shouldBe records.count()
-            result[0].shouldBeInstanceOf<IgnoredRecord>()
+            result[0].shouldBeInstanceOf<UnsupportedRecord>()
             result[1].shouldBeInstanceOf<AddOrderRecord>()
             result[2].shouldBeInstanceOf<CancelOrderRecord>()
             result[3].shouldBeInstanceOf<ExecuteOrderRecord>()

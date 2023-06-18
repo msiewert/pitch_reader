@@ -53,8 +53,8 @@ class PitchService() {
                     executedVolumes[record.symbol] = executedVolumes.getOrDefault(record.symbol, 0) + record.shares
                 }
 
-                is IgnoredRecord -> {
-                    logger.info { "Ignored record of type ${record.type}" }
+                is UnsupportedRecord -> {
+                    logger.info { "Unsupported record of type ${record.type}" }
                 }
 
                 else -> {

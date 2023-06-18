@@ -44,7 +44,7 @@ class PitchParser(private val data: Sequence<String>) {
                 )
             }
             withRecord({ _ -> true }) {
-                IgnoredRecord(
+                UnsupportedRecord(
                     type = field(MESSAGE_TYPE_OFFSET, MESSAGE_TYPE_OFFSET + 1)
                 )
             }

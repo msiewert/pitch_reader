@@ -122,20 +122,6 @@ class PitchServiceTest : FunSpec({
 
         }
 
-        test("should ignore ignored records") {
-
-            val records = List(faker.random.nextInt(10, 1000)) {
-                faker.randomProvider.randomClassInstance<IgnoredRecord>()
-            }
-
-            val sut = PitchService()
-            val result = sut.processData(records)
-
-            result.executedVolumes shouldBe emptyMap()
-            result.orders shouldBe emptyMap()
-
-        }
-
         test("should ignore unsupported records") {
 
             val records = List(faker.random.nextInt(10, 1000)) {
@@ -151,5 +137,3 @@ class PitchServiceTest : FunSpec({
         }
     }
 })
-
-data class UnsupportedRecord(val orderId: String, val shares: Int, val symbol: String)
