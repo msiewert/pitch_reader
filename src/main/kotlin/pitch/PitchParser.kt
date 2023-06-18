@@ -13,7 +13,6 @@ const val SHARES_LENGTH = 6
 
 class PitchParser(private val data: Sequence<String>) {
     fun parse(): List<Any> {
-        //TODO: convert sequence to input stream without needing to join as one string
         val inputStream = data.asStream().collect(Collectors.joining("\n")).byteInputStream()
         val records = multiFixedLengthFileParser(
             inputStream
