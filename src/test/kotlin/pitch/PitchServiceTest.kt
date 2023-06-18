@@ -16,8 +16,8 @@ class PitchServiceTest : FunSpec({
                 faker.randomProvider.randomClassInstance<AddOrderRecord>()
             }
 
-            val sut = PitchService(records)
-            val result = sut.processData()
+            val sut = PitchService()
+            val result = sut.processData(records)
 
             result.executedVolumes shouldBe emptyMap()
             result.orders shouldBe records.associateBy { it.orderId }
@@ -34,8 +34,8 @@ class PitchServiceTest : FunSpec({
                 ExecuteOrderRecord(orderId, volume)
             )
 
-            val sut = PitchService(records)
-            val result = sut.processData()
+            val sut = PitchService()
+            val result = sut.processData(records)
 
             result.executedVolumes shouldBe mapOf(
                 symbol to volume
@@ -54,8 +54,8 @@ class PitchServiceTest : FunSpec({
                 ExecuteOrderRecord(orderId, volume)
             )
 
-            val sut = PitchService(records)
-            val result = sut.processData()
+            val sut = PitchService()
+            val result = sut.processData(records)
 
             result.executedVolumes shouldBe emptyMap()
             result.orders shouldBe emptyMap()
@@ -72,8 +72,8 @@ class PitchServiceTest : FunSpec({
                 CancelOrderRecord(orderId, volume)
             )
 
-            val sut = PitchService(records)
-            val result = sut.processData()
+            val sut = PitchService()
+            val result = sut.processData(records)
 
             result.executedVolumes shouldBe emptyMap()
             result.orders shouldBe emptyMap()
@@ -91,8 +91,8 @@ class PitchServiceTest : FunSpec({
                 CancelOrderRecord(orderId, cancelledVolume)
             )
 
-            val sut = PitchService(records)
-            val result = sut.processData()
+            val sut = PitchService()
+            val result = sut.processData(records)
 
             result.executedVolumes shouldBe emptyMap()
             result.orders shouldBe mapOf(
@@ -112,8 +112,8 @@ class PitchServiceTest : FunSpec({
                 )
             }
 
-            val sut = PitchService(records)
-            val result = sut.processData()
+            val sut = PitchService()
+            val result = sut.processData(records)
 
             result.executedVolumes shouldBe mapOf(
                 symbol to records.sumOf { it.shares }
@@ -128,8 +128,8 @@ class PitchServiceTest : FunSpec({
                 faker.randomProvider.randomClassInstance<IgnoredRecord>()
             }
 
-            val sut = PitchService(records)
-            val result = sut.processData()
+            val sut = PitchService()
+            val result = sut.processData(records)
 
             result.executedVolumes shouldBe emptyMap()
             result.orders shouldBe emptyMap()
@@ -142,8 +142,8 @@ class PitchServiceTest : FunSpec({
                 faker.randomProvider.randomClassInstance<UnsupportedRecord>()
             }
 
-            val sut = PitchService(records)
-            val result = sut.processData()
+            val sut = PitchService()
+            val result = sut.processData(records)
 
             result.executedVolumes shouldBe emptyMap()
             result.orders shouldBe emptyMap()
